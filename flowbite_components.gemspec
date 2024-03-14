@@ -1,26 +1,35 @@
-require_relative "lib/flowbite_components/version"
+require_relative "lib/flowbite/components/version"
 
 Gem::Specification.new do |spec|
-  spec.name        = "flowbite_components"
-  spec.version     = FlowbiteComponents::VERSION
-  spec.authors     = ["Eric Berry"]
-  spec.email       = ["eric@berry.sh"]
-  spec.homepage    = "TODO"
-  spec.summary     = "TODO: Summary of FlowbiteComponents."
-  spec.description = "TODO: Description of FlowbiteComponents."
-  spec.license     = "MIT"
+  spec.name = "flowbite_components"
+  spec.version = Flowbite::Components::VERSION
+  spec.authors = ["Eric Berry"]
+  spec.email = ["eric@berry.sh"]
 
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
+  spec.homepage = "https://github.com/coderberry/flowbite_components"
+  spec.summary = "ViewComponents for Flowbite Component System"
+  spec.license = "MIT"
+
+  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
-  spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
-
-  spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
-  spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
-
-  spec.files = Dir.chdir(File.expand_path(__dir__)) do
-    Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  if spec.respond_to?(:metadata)
+    spec.metadata["allowed_push_host"] = "https://rubygems.org"
+  else
+    raise "RubyGems 2.0 or newer is required to protect against " \
+            "public gem pushes."
   end
 
-  spec.add_dependency "rails", ">= 7.1.3.2"
+  spec.files = Dir["lib/**/*", "app/**/*", "config/**/*", "LICENSE.txt", "README.md"]
+
+  spec.required_ruby_version = ">= 2.7.0"
+
+  spec.add_runtime_dependency "rails", ">= 5.0.0"
+  spec.add_runtime_dependency "view_component", ">= 3.0.0", "< 4.0.0"
+
+  spec.add_development_dependency "webdrivers", "~> 5.0"
+  spec.add_development_dependency "selenium-webdriver", "~> 4.1"
+  spec.add_development_dependency "minitest", "~> 5.0"
+  spec.add_development_dependency "pry"
+  spec.add_development_dependency "sprockets-rails"
+  spec.add_development_dependency "kamal"
 end

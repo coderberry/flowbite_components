@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+VERSION=$1
+
+if [ -z $1 ] ; then
+  echo "Please provide version number: script/release 1.0.0" && exit 1;
+fi
+
+printf "module Flowbite\n  module Components\n    VERSION = \"$VERSION\"\n  end\nend\n" > ./lib/flowbite/components/version.rb
+bundle
+cd demo
+bundle
+cd ..
+git add Gemfile.lock demo/Gemfile.lock lib/flowbite/components/version.rb
+git commit -m "Bump version for $VERSION"
+git push
+git tag v$VERSION
+git push --tags
+gem build flowbite_components.gemspec
+gem push "flowbite_components-$VERSION.gem"
+rm "flowbite_components-$VERSION.gem"
+
+echo "Need to publish NPM package too?"
+
+while true; do
+  read -p "Deploy new version of flowbitecomponents.org? [Yn] " yn
+  case $yn in
+    [Yy]* )
+      kamal deploy
+      break;;
+    [Nn]* ) break;;
+    * ) echo "Please answer yes or no.";;
+  esac
+done
