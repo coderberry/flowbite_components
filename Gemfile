@@ -1,12 +1,20 @@
 source "https://rubygems.org"
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-# Specify your gem's dependencies in flowbite_components.gemspec.
 gemspec
 
-gem "puma"
+gem "rake", "~> 13.0"
+gem "rails", "~> 7.1.3.2"
+gem "puma", "~> 6.0"
+gem "sprockets-rails"
+gem "importmap-rails"
+gem "turbo-rails"
+gem "stimulus-rails"
+gem "lookbook", "~> 2.0"
 
-gem "propshaft"
+gem "foreman"
+gem "capybara"
+gem "sqlite3"
+gem "standard"
 
-# Start debugger with binding.b [https://github.com/ruby/debug]
-# gem "debug", ">= 1.0.0"
+# TODO: Keep until support for Ruby 2.7 is dropped
+gem "selenium-webdriver", "=4.9.0"
