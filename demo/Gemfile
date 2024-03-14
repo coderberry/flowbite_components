@@ -10,6 +10,9 @@ gem "importmap-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
 gem "lookbook", "~> 2.0"
+gem "base64", "~> 0.2.0"
+gem "bigdecimal", "~> 3.1"
+gem "mutex_m", "~> 0.2.0"
 
 gem "flowbite_components", path: "../"
 
@@ -21,8 +24,3 @@ group :development do
   gem "listen"
   gem "web-console", ">= 4.1.0"
 end
-
-gem "base64", "~> 0.2.0"
-
-gem "bigdecimal", "~> 3.1"
-gem "mutex_m", "~> 0.2.0"

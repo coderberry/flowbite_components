@@ -1,0 +1,66 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+
+@options = {
+  parent: "Flowbite::Component",
+  inline: false,
+  preview: true,
+  sidecar: false,
+  stimulus: false,
+  pretend: false,
+  quiet: false,
+  force: false
+}
+
+name = ARGV.shift
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: bin/gen NAME [options]"
+  opts.on("-v", "--verbose", "Show extra information") do
+    @options[:verbose] = true
+  end
+  opts.on("-i", "--inline", "Indicates when to generate inline (default: false)") do
+    @options[:inline] = true
+  end
+  opts.on("-P", "--skip-preview", "Indicates when to generate preview (default: true)") do
+    @options[:preview] = false
+  end
+  opts.on("-c", "--sidecar", "Indicates when to generate sidecar (default: true)") do
+    @options[:sidecar] = true
+  end
+  opts.on("-s", "--stimulus", "Indicates when to generate stimulus (default: false)") do
+    @options[:stimulus] = true
+  end
+  opts.on("--pretend", "Run but do not make any changes") do
+    @options[:pretend] = true
+  end
+  opts.on("--quiet", "Suppress status output") do
+    @options[:quiet] = true
+  end
+  opts.on("--force", "Overwrite files that already exist") do
+    @options[:force] = true
+  end
+
+end.parse!
+
+p @options
+
+cmd = [
+  "bin/rails",
+  "generate",
+  "component",
+  name
+]
+
+cmd << "--parent=#{@options[:parent]}" if @options[:parent]
+cmd << "--inline" if @options[:inline]
+cmd << "--preview" unless @options[:preview]
+cmd << "--sidecar" if @options[:sidecar]
+cmd << "--stimulus" if @options[:stimulus]
+cmd << "--pretend" if @options[:pretend]
+cmd << "--quiet" if @options[:quiet]
+cmd << "--force" if @options[:force]
+
+puts "Running: #{cmd.join(" ")}"
+system(cmd.join(" "))

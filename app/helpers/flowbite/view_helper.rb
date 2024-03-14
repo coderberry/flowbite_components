@@ -1,8 +1,9 @@
-module Polaris
+module Flowbite
   # Module to allow shorthand calls for Polaris components
   module ViewHelper
     # standard:disable Layout/HashAlignment
     FLOWBITE_HELPERS = {
+      button: "Flowbite::Button",
       # action_list:              "Polaris::ActionListComponent",
       # autocomplete:             "Polaris::AutocompleteComponent",
       # autocomplete_section:     "Polaris::Autocomplete::SectionComponent",
@@ -99,8 +100,8 @@ module Polaris
     #   end
     # end
 
-    def polaris_icon_source(name)
-      path = ViewComponents::Engine.root.join("app", "assets", "icons", "flowbite", "#{name}.svg")
+    def flowbite_icon_source(name, variant = :solid)
+      path = ViewComponents::Engine.root.join("app", "assets", "icons", "flowbite", variant.to_s, "#{name}.svg")
       file = File.read(path)
       doc = Nokogiri::HTML::DocumentFragment.parse(file)
       svg = doc.at_css "svg"
